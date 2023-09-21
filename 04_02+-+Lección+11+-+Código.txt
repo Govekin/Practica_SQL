@@ -1,0 +1,32 @@
+/*
+AGREGACIONES Y AGRUPACIONES
+
+
+
+Ejemplo #1 - ¿cuántas películas hay en cada valor de costo_renta?
+
+Ejemplo #2 - retorna la clasificación y el promedio de duración de todas las películas
+
+*/
+
+
+SELECT costo_renta, COUNT(*)
+FROM pelicula
+GROUP BY costo_renta;
+
+SELECT clasificacion, AVG(duracion)
+FROM pelicula
+GROUP BY 1
+ORDER BY 2;
+
+
+/*
+
+Ejemplo #3 - Por clasificacion y por costo renta hay alguna relación con duración de la pelicula?
+
+*/
+
+SELECT clasificacion, costo_renta, AVG(duracion)
+FROM pelicula
+GROUP BY 1,2
+ORDER BY 1,2; 

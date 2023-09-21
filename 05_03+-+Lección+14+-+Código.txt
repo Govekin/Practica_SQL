@@ -1,0 +1,54 @@
+/*
+JUNTAR TABLAS 3: LEFT JOIN/ RIGHT JOIN
+
+
+
+Ejemplo #1
+    ¿Cuántas copias de cada película tenemos en nuestro inventario?
+
+*/
+
+
+SELECT p.pelicula_id,
+    p.titulo,
+    COUNT(i.inventario_id) AS copias
+FROM pelicula p
+LEFT JOIN inventario i
+    ON p.pelicula_id=i.pelicula_id
+GROUP BY 1,2;
+
+
+/*
+
+Ejemplo #2
+    ¿Cuántas copias de cada película tenemos en nuestro inventario y cuantas veces se ha rentado cada película?
+
+*/
+
+SELECT p.pelicula_id,
+    p.titulo,
+    COUNT(DISTINCT i.inventario_id) AS copias,
+    COUNT(r.renta_id) AS rentas
+FROM pelicula p
+LEFT JOIN inventario i
+    ON p.pelicula_id=i.pelicula_id
+LEFT JOIN renta r
+    ON i.inventario_id=r.inventario_id
+GROUP BY 1,2;
+
+
+/*
+
+Ejemplo #2
+    ¿Cuántas copias de cada película tenemos en nuestro inventario en la tienda 1?
+
+*/
+
+SELECT p.pelicula_id,
+    p.titulo,
+    COUNT(i.inventario_id) AS copias
+FROM pelicula p
+LEFT JOIN inventario i
+    ON p.pelicula_id=i.pelicula_id
+    AND i.tienda_id=1
+GROUP BY 1,2;

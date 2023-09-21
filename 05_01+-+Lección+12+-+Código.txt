@@ -1,0 +1,21 @@
+/*
+JUNTAR TABLAS 1: JOIN CON DOS TABLAS
+
+
+Ejemplo #1
+    ¿Quiénes son los 5 clientes que rentan más?
+
+*/
+
+
+SELECT c.cliente_id,
+    c.nombre,
+    c.apellido,
+    COUNT(r.renta_id)
+FROM renta r
+JOIN cliente c
+    ON r.cliente_id=c.cliente_id
+GROUP BY 1,2,3
+ORDER BY 4 DESC
+LIMIT 5
+;

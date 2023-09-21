@@ -1,0 +1,22 @@
+/*
+OPERADORES LÓGICOS Y MANIPULACIÓN DE DATOS
+
+
+
+Ejemplo #1 - retorna el número de películas, el costo_rental mínimo y máximo de la tabla pelíclua
+
+Ejemplo #2 - ¿cuales son los valores posibles de costo_renta dentro de la tabla película?
+
+Ejemplo #3 - ¿cuántos valores de costo_renta son posibles en la tabla de película?
+
+*/
+
+SELECT MIN(costo_renta), MAX(costo_renta), COUNT(original_idioma_id), COUNT(pelicula_id), COUNT(*)
+FROM pelicula;
+
+SELECT DISTINCT costo_renta
+FROM pelicula;
+
+SELECT COUNT(DISTINCT costo_renta)
+FROM pelicula;
+

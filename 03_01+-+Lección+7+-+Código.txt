@@ -1,0 +1,143 @@
+/*
+NUESTRA PRIMERA CONSULTA
+
+*/
+
+
+/*
+
+RECUPERA
+DE
+DONDE
+
+    ||
+
+SELECT
+FROM
+WHERE
+
+
+
+Ejemplo #1
+
+    RECUPERA el número de identificación del cliente, su nombre y apellido
+    DE la tabla cliente
+
+*/
+
+SELECT cliente_id, nombre, apellido
+FROM cliente
+;
+
+
+/*
+Ejemplo #2
+
+    de la tabla pelicula
+    quiero ver el título y año estreno de cada película
+*/
+
+SELECT titulo, anio_estreno
+FROM pelicula
+;
+
+
+
+/*
+Ejemplo #3
+
+    de la tabla pelicula
+    quiero ver todos los campos de cada película
+*/
+
+SELECT *
+FROM pelicula
+;
+
+
+
+/*
+Ejemplo #4
+
+    de la tabla pelicula
+    quiero ver todos los campos de cada película
+    ordenados por el costo de renta, ascendiendo en valor
+*/
+
+SELECT *
+FROM pelicula
+ORDER BY costo_renta ASC
+;
+
+
+
+/*
+Ejemplo #5
+
+    de la tabla pelicula
+    quiero ver el título y costo
+    de todas las películas que cuesten .00 para rentar
+
+    RECUPERA
+    DE
+    DONDE
+
+        ||
+
+    SELECT
+    FROM
+    WHERE
+
+*/
+
+SELECT titulo, costo_renta
+FROM pelicula
+WHERE costo_renta=.99
+;
+
+
+/* RESUMEN
+
+RECUPERA
+DE
+DONDE
+ORDENADO POR  (DESC/ASC)
+
+    ||
+
+SELECT
+FROM
+WHERE
+ORDER BY  (DESC/ASC)
+
+-- para recuperar todo puedes usar "*"
+SELECT *
+
+-- ";" temrina una declaración
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

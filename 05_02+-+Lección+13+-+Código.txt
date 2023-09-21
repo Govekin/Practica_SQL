@@ -1,0 +1,33 @@
+/*
+JUNTAR TABLAS 2: JOIN CON MAS DE DOS TABLAS
+
+
+Calcula los ingresos
+
+1 - ¿Cuántos fueron los ingresos totales de rentas?
+
+2 - ¿Cuántos fueron los ingresos de rentas por mes?
+
+*/
+
+
+SELECT SUM(p.costo_renta)
+FROM renta r
+JOIN inventario i
+    ON r.inventario_id=i.inventario_id
+JOIN pelicula p
+    ON i.pelicula_id=p.pelicula_id
+;
+
+SELECT
+    YEAR(r.renta_fecha) AS año,
+    MONTH(r.renta_fecha) AS mes,
+    SUM(p.costo_renta)
+FROM renta r
+JOIN inventario i
+    ON r.inventario_id=i.inventario_id
+JOIN pelicula p
+    ON i.pelicula_id=p.pelicula_id
+GROUP BY 1,2
+ORDER BY 1,2
+;

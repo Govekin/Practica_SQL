@@ -1,0 +1,115 @@
+
+/*********************************
+detalles de las tiendas
+*/
+
+SELECT t.tienda_id AS tienda,
+    d.distrito,
+    CONCAT(nombre,' ', apellido) AS gerente
+FROM tienda t
+JOIN direccion d
+    ON t.direccion_id=d.direccion_id
+JOIN empleado e
+    ON t.gerente_empleado_id=e.empleado_id
+;
+
+
+/*********************************
+Evaluación 
+*/
+
+SELECT
+    c.tienda_id,
+    COUNT(DISTINCT c.cliente_id) AS clientes,
+    COUNT(r.renta_id) AS rentas,
+    SUM(p.costo_renta) AS ingresos,
+    COUNT(r.renta_id)/COUNT(DISTINCT c.cliente_id) AS rentas_x_cliente,
+    SUM(p.costo_renta)*1.0/COUNT(DISTINCT c.cliente_id) AS ingresos_x_cliente
+FROM cliente c
+LEFT JOIN renta r
+    ON r.cliente_id=c.cliente_id
+    AND YEAR(r.renta_fecha)=2005
+LEFT JOIN inventario i
+    ON r.inventario_id=i.inventario_id
+LEFT JOIN pelicula p
+    ON i.pelicula_id=p.pelicula_id
+GROUP BY 1;
+
+/* 
+NOTA 1:
+En esta base de datos, todos los clientes han tenido rentas, asi que no se tiene que 
+usar LEFT JOIN para obtener los mismos resultados.
+Pero en general, esto no sucede - y es mejor usar LEFT JOIN.
+Por ejemplo aqui en Udemy, tenemos estudiantes que se registran como clientes
+y no se inscriben en ningún curso 
+
+Igual en una tienda de videos normal - siempre puedes crear tu cuenta un día y no 
+rentar nada
+*/
+
+
+/*********************************
+tendencias de ingresos
+*/
+
+SELECT
+    CONCAT(YEAR(r.renta_fecha), '-', MONTH(r.renta_fecha)) AS mes,
+    SUM(p.costo_renta) AS ingresos
+FROM renta r
+JOIN cliente c
+    ON r.cliente_id=c.cliente_id
+    AND c.tienda_id=1  # cambiar a 2 para Tienda 2
+LEFT JOIN inventario i
+    ON r.inventario_id=i.inventario_id
+LEFT JOIN pelicula p
+    ON i.pelicula_id=p.pelicula_id
+WHERE YEAR(r.renta_fecha)=2005
+GROUP BY 1
+ORDER BY 1
+;
+
+
+/*********************************
+las 10 películas más rentadas por tienda
+*/
+
+SELECT p.titulo,
+    COUNT(*) AS rentas
+FROM pelicula p
+JOIN inventario i
+    ON i.pelicula_id=p.pelicula_id
+JOIN renta r
+    ON r.inventario_id=i.inventario_id
+JOIN cliente c
+    ON r.cliente_id=c.cliente_id
+WHERE c.tienda_id=1  # cambiar a 2 para Tienda 2
+    AND YEAR(r.renta_fecha)=2005
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10
+;
+
+
+/*********************************
+Rentas por categoría por tienda
+*/
+
+SELECT cat.nombre,
+    COUNT(*) AS rentas
+FROM pelicula p
+JOIN inventario i
+    ON i.pelicula_id=p.pelicula_id
+JOIN renta r
+    ON r.inventario_id=i.inventario_id
+JOIN cliente c
+    ON r.cliente_id=c.cliente_id
+JOIN pelicula_categoria pc
+    ON p.pelicula_id=pc.pelicula_id
+JOIN categoria cat
+    ON pc.categoria_id=cat.categoria_id
+WHERE c.tienda_id=1  # cambiar a 2 para Tienda 2
+    AND YEAR(r.renta_fecha)=2005
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 10
+;

@@ -1,0 +1,130 @@
+/*
+OPERADORES LÓGICOS Y MANIPULACIÓN DE DATOS
+
+*/
+
+
+/*
+
+Ejemplo #1
+
+a)  recupera el título, costo renta, costo repuesto de películas que cuesten mas de $2
+
+b)  recupera el título, costo renta, costo repuesto de películas que cuesten mas de $2 y menos de $4
+
+c)  estoy considerando cambiar la política del costo de repuesto para que sea siempre igual a 5 veces el costo renta. Veamos como...
+
+d)  una pelicula nueva, Humanos, esta a punto de estrenar en los cines. Para aprovechar la prensa que tiene la peli, quiero hacer una promoción a todas las películas en mi inventario que contengan la palabra "human" en su título.  ¿Cuales son?
+
+*/
+
+
+SELECT titulo, costo_renta, costo_repuesto
+FROM pelicula
+WHERE costo_renta > 2;
+
+
+SELECT titulo, costo_renta, costo_repuesto
+FROM pelicula
+WHERE costo_renta > 2
+    AND costo_renta < 4
+;
+
+SELECT titulo, costo_renta, costo_repuesto
+FROM pelicula
+WHERE costo_renta BETWEEN 2 AND 4
+;
+
+SELECT titulo, costo_renta, costo_repuesto,
+    costo_renta * 5 AS costo_repuesto_nuevo
+FROM pelicula
+;
+
+
+SELECT titulo
+FROM pelicula
+WHERE titulo LIKE '%human%';
+
+
+
+/*
+
+Ejemplo #2 - manipulación de cadenas
+
+a)  recupera el nombre y apellido de todos los clientes en un solo campo
+
+b)  limita a solo clientes que tengan nombre que empieze con la letra M
+
+*/
+
+
+SELECT nombre, apellido,
+    CONCAT(nombre, ' ', apellido) AS nombre_apellido
+FROM cliente;
+
+
+
+SELECT nombre, apellido,
+    CONCAT(nombre, ' ', apellido) AS nombre_apellido
+FROM cliente
+WHERE nombre LIKE 'M%'
+;
+
+
+
+/*
+
+Ejemplo #3 - fechas y sellos de tiempo
+
+recupera el título, año de estreno y edad (en años)
+de todos las películas
+
+*/
+
+
+SELECT titulo, año_estreno,
+    YEAR( NOW() ) - año_estreno AS edad
+FROM pelicula;
+
+
+
+
+/*
+
+OPERADORES LOGICOS
+
+    =               -- igual
+    >, >=, <, <=    -- mayor, mayor o igual, menor, 
+                        menor o igual
+    <> , !=         -- no igual
+    AND             -- y
+    OR              -- ó
+    BETWEEN         -- entre
+    LIKE            -- como / siguiendo el patrón -- 
+                        para cadenas
+        %               -- comodín - cualquier caracter 
+                            y cantidad de caracter
+        _               -- comodín - cualquier caracter 
+                            - uno solo
+
+
+
+OPERADORES ARITMETICOS
+
+    +, -, *, /      -- suma, resta, multiplicación,     
+                        división
+    
+    
+OPERADORES PARA CADENAS
+    CONCAT()        -- concatenar
+    LOWER()         -- minúsculas
+    UPPER()         -- mayúsculas
+    LENGTH()        -- largo
+
+
+OPERADORES PARA FECHAS / SELLOS DE TIEMPO
+    NOW()           -- ahora  --> retorna sello de                              tiempo
+    DATE()          -- truncar sello de tiempo a solo la                         fecha --> retorna fecha
+    YEAR()          -- truncar fecha/sello de tiempo a                          solo el año --> retorna número
+    MONTH()         -- truncar fecha/sello de tiempo a                          solo el mes --> retorna número
+*/
